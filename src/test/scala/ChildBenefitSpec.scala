@@ -47,7 +47,7 @@ class ChildBenefitSpec extends AnyWordSpec with Matchers {
         val child1 = ChildInFamily(age = 18, inEducation = false, isDisabled = false)
         val child2 = ChildInFamily(age = 16, inEducation = true, isDisabled = false)
         val child3 = ChildInFamily(age = 13, inEducation = false, isDisabled = false)
-        val family = List(child1, child2)
+        val family = List(child1, child2, child3)
         val income = 75000
         val result = ChildBenefit.calculateWeeklyAmount(family, income)
         val expectedResult = 11.54
