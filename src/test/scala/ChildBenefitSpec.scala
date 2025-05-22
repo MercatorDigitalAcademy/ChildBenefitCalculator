@@ -22,7 +22,7 @@ class ChildBenefitSpec extends AnyWordSpec with Matchers {
         val child3 = ChildInFamily(age = 8, inEducation = false, isDisabled = false)
         val family = List(child1, child2, child3)
         val income = 30000
-        val result = ChildBenefit.calculateWeeklyAmount(family, income)
+        val result = ChildBenefit.finalTotalValue(family, income)
         val expectedResult = 60.55
         result shouldBe expectedResult
       }
@@ -35,7 +35,7 @@ class ChildBenefitSpec extends AnyWordSpec with Matchers {
         val child2 = ChildInFamily(age = 15, inEducation = false, isDisabled = false)
         val family = List(child1, child2)
         val income = 55000
-        val result = ChildBenefit.calculateWeeklyAmount(family, income)
+        val result = ChildBenefit.finalTotalValue(family, income)
         val expectedResult = 2.88
         result shouldBe expectedResult
       }
@@ -49,8 +49,62 @@ class ChildBenefitSpec extends AnyWordSpec with Matchers {
         val child3 = ChildInFamily(age = 13, inEducation = false, isDisabled = false)
         val family = List(child1, child2, child3)
         val income = 75000
-        val result = ChildBenefit.calculateWeeklyAmount(family, income)
+        val result = ChildBenefit.finalTotalValue(family, income)
         val expectedResult = 11.54
+        result shouldBe expectedResult
+      }
+    }
+  }
+  "TC04" should {
+    "return £0" when {
+      "income is £200,000 and the child is 6" in {
+        val child1 = ChildInFamily(age = 6, inEducation = false, isDisabled = false)
+        val family = List(child1)
+        val income = 200000
+        val result = ChildBenefit.finalTotalValue(family, income)
+        val expectedResult = 0
+        result shouldBe expectedResult
+      }
+    }
+  }
+  "TC05" should {
+    "return £102.75" when {
+      "income is £50,000 and the children are 15, 13, 11 with SC, 9 and 7 with SC" in {
+        val child1 = ChildInFamily(age = 15, inEducation = false, isDisabled = false)
+        val child2 = ChildInFamily(age = 13, inEducation = false, isDisabled = false)
+        val child3 = ChildInFamily(age = 11, inEducation = false, isDisabled = true)
+        val child4 = ChildInFamily(age = 9, inEducation = false, isDisabled = false)
+        val child5 = ChildInFamily(age = 7, inEducation = false, isDisabled = true)
+        val family = List(child1, child2, child3, child4, child5)
+        val income = 50000
+        val result = ChildBenefit.finalTotalValue(family, income)
+        val expectedResult = 102.75
+        result shouldBe expectedResult
+      }
+    }
+  }
+  "TC06" should {
+    "return £6.73" when {
+      "income is £100,000 and the child is 5 with SC" in {
+        val child1 = ChildInFamily(age = 5, inEducation = false, isDisabled = true)
+        val family = List(child1)
+        val income = 100000
+        val result = ChildBenefit.finalTotalValue(family, income)
+        val expectedResult = 6.73
+        result shouldBe expectedResult
+      }
+    }
+  }
+  "TC07" should {
+    "return £28.86" when {
+      "income is £90,000 and the children are 8 with SC, 4 with SC and 1 with SC" in {
+        val child1 = ChildInFamily(age = 15, inEducation = false, isDisabled = true)
+        val child2 = ChildInFamily(age = 13, inEducation = false, isDisabled = true)
+        val child3 = ChildInFamily(age = 11, inEducation = false, isDisabled = true)
+        val family = List(child1, child2, child3)
+        val income = 90000
+        val result = ChildBenefit.finalTotalValue(family, income)
+        val expectedResult = 28.86
         result shouldBe expectedResult
       }
     }
