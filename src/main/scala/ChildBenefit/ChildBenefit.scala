@@ -14,7 +14,7 @@ object ChildBenefit extends App {
   }
 
   //  /** disabled child rate * */
-    def additionalDisabledBenefitRate(children: List[ChildInFamily], income: Int): BigDecimal = {
+  def additionalDisabledBenefitRate(children: List[ChildInFamily], income: Int): BigDecimal = {
     val countChildrenWithDisability = children.filter(_.isDisabled == true)
     if (countChildrenWithDisability.nonEmpty && income <= 100000)
       countChildrenWithDisability.length * 3.85
@@ -47,7 +47,7 @@ object ChildBenefit extends App {
   }
 
   //EXT
-  def calculateYearlyAmountEldest(): Double = ???
+  def calculateYearlyAmountEldest(): BigDecimal = EldestChildRate * BigDecimal(52.0)
 
-  def calculateYearlyAmountFurtherChild(): Double = ???
+  def calculateYearlyAmountFurtherChild(): BigDecimal = FurtherChildRate * BigDecimal(52)
 }

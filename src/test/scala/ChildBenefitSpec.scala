@@ -109,5 +109,23 @@ class ChildBenefitSpec extends AnyWordSpec with Matchers {
       }
     }
   }
+  "calculateYearlyAmountEldest" should {
+    "return 1354.6" when {
+      "invoked" in {
+        val result = ChildBenefit.calculateYearlyAmountEldest()
+        val expectedResult = 1354.6
+        result shouldBe expectedResult
+      }
+    }
+  }
+  "calculateYearlyAmountFurtherChild" should {
+    "return 897" when {
+      "invoked" in {
+        val result = ChildBenefit.calculateYearlyAmountFurtherChild()
+        val expectedResult = 897.0
+        result shouldBe expectedResult
+      }
+    }
+  }
 }
 
